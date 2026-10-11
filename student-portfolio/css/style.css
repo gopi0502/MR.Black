@@ -1,0 +1,646 @@
+/* ==========================================================================
+   MIDNIGHT GLASSMORPHISM PORTFOLIO - STYLESHEET
+   Palette:
+   - Background: #0a0a0a (Near-black)
+   - Cards / Glass: rgba(26, 26, 26, 0.65) (#1a1a1a base)
+   - Borders: #2a2a2a (Subtle dark gray)
+   - Text Main: #ffffff & #e0e0e0 (Soft white)
+   - Text Muted: #9e9e9e / #757575
+   - Accents: #3b82f6 (Electric Blue), #8b5cf6 (Neon Purple), #10b981 (Emerald)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+/* --- Root Variables --- */
+:root {
+  --bg-midnight: #0a0a0a;
+  --bg-card: rgba(26, 26, 26, 0.65);
+  --bg-card-hover: rgba(32, 32, 32, 0.85);
+  --border-subtle: #2a2a2a;
+  --border-highlight: rgba(255, 255, 255, 0.12);
+  --border-accent: rgba(59, 130, 246, 0.45);
+  
+  --text-pure: #ffffff;
+  --text-soft: #e0e0e0;
+  --text-muted: #9e9e9e;
+  --text-dim: #666666;
+
+  --accent-blue: #3b82f6;
+  --accent-blue-glow: rgba(59, 130, 246, 0.25);
+  --accent-cyan: #06b6d4;
+  --accent-purple: #8b5cf6;
+  --accent-emerald: #10b981;
+
+  --nav-height: 4.25rem;
+  --card-blur: 18px;
+}
+
+/* --- Base & Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-midnight);
+  color: var(--text-soft);
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-midnight);
+  color: var(--text-soft);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
+
+/* Typography Helpers */
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- Frosted Glassmorphism Components --- */
+.glass-nav {
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.glass-card,
+.bubble-box {
+  background: var(--bg-card);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.3s ease,
+              box-shadow 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+/* Frosted glass top highlight sheen */
+.glass-card::before,
+.bubble-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* Hover inflation on desktop - box gets bigger like a bubble! */
+.glass-card:hover,
+.bubble-box:hover {
+  transform: scale(1.055) translateY(-5px);
+  background: var(--bg-card-hover);
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.85),
+              0 0 30px -5px rgba(59, 130, 246, 0.45),
+              inset 0 0 16px rgba(255, 255, 255, 0.08);
+  z-index: 15;
+}
+
+/* Active or Touched inflation - box expands bigger like an inflated bubble */
+.glass-card:active,
+.bubble-box:active,
+.glass-card.is-bubble-inflated,
+.bubble-box.is-bubble-inflated {
+  transform: scale(1.08) translateY(-6px) !important;
+  border-color: rgba(96, 165, 250, 0.85) !important;
+  box-shadow: 0 24px 55px -6px rgba(0, 0, 0, 0.9),
+              0 0 38px rgba(59, 130, 246, 0.55),
+              inset 0 0 20px rgba(255, 255, 255, 0.12) !important;
+  z-index: 20;
+}
+
+/* Large container card adjusted scale to prevent layout overflow */
+#skills .glass-card.shadow-xl:hover,
+#skills .glass-card.shadow-xl:active,
+#skills .glass-card.shadow-xl.is-bubble-inflated {
+  transform: scale(1.025) translateY(-3px) !important;
+}
+
+/* Inner sub-boxes (e.g. Board Score, Next Academic Phase) bubble expansion */
+.bubble-box-sub {
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.38s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+.bubble-box-sub:hover,
+.bubble-box-sub:active,
+.bubble-box-sub.is-bubble-inflated {
+  transform: scale(1.085) translateY(-4px) !important;
+  border-color: rgba(96, 165, 250, 0.8) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85),
+              0 0 28px rgba(59, 130, 246, 0.5) !important;
+  background: rgba(38, 38, 38, 0.95) !important;
+  z-index: 20;
+}
+
+/* Skill tabs bouncy bubble expansion */
+.skill-tab {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+  will-change: transform;
+}
+
+.skill-tab:hover,
+.skill-tab:active,
+.skill-tab.is-bubble-inflated {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 18px rgba(59, 130, 246, 0.35);
+}
+
+/* Bouncy bubble inflate keyframe */
+@keyframes bubblePuffBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.09) translateY(-6px); }
+  75% { transform: scale(1.06) translateY(-4px); }
+  100% { transform: scale(1.075) translateY(-5px); }
+}
+
+.anim-bubble-inflate {
+  animation: bubblePuffBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.glass-card-static {
+  background: var(--bg-card);
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  border: 1px solid var(--border-subtle);
+}
+
+/* Frosted Badge */
+.glass-badge {
+  background: rgba(35, 35, 35, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-soft);
+}
+
+/* --- Interactive Hero Canvas --- */
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Re-enable pointer events for interactive elements inside hero */
+.hero-content a,
+.hero-content button,
+.hero-content input,
+.hero-content .glass-card {
+  pointer-events: auto;
+}
+
+/* Background Ambient Glow Orbs */
+.bg-ambient-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+}
+
+.ambient-orb-1 {
+  top: 5%;
+  left: 15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+  animation: floatOrb 22s infinite alternate ease-in-out;
+}
+
+.ambient-orb-2 {
+  top: 45%;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+  animation: floatOrb 28s infinite alternate-reverse ease-in-out;
+}
+
+.ambient-orb-3 {
+  bottom: 10%;
+  left: 20%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+  animation: floatOrb 20s infinite alternate ease-in-out;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.1); }
+  100% { transform: translate(-30px, 50px) scale(0.95); }
+}
+
+/* Subtle background grid pattern */
+.bg-grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+/* --- Gradient Texts --- */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 15%, #93c5fd 60%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- Terminal / Code Box --- */
+.terminal-card {
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: rgba(24, 24, 24, 0.95);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* --- Scroll-Triggered Animations --- */
+.fade-in-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.fade-in-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay helpers for grid elements */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* --- Back to Top Floating Button --- */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 40;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(26, 26, 26, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+#back-to-top:hover {
+  background: rgba(35, 35, 35, 0.95);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* --- Image Lightbox Modal --- */
+#lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(5, 5, 5, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#lightbox-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(0.94);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#lightbox-modal.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-img-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  background: #111111;
+  max-height: 72vh;
+}
+
+.lightbox-img-wrapper img {
+  display: block;
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-btn {
+  background: rgba(26, 26, 26, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lightbox-btn:hover {
+  background: rgba(45, 45, 45, 0.9);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+/* Lightbox overlay hover on project images */
+.gallery-thumbnail-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #121212;
+}
+
+.gallery-thumbnail-container img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-thumbnail-container:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-thumbnail-container:hover .gallery-overlay {
+  opacity: 1;
+}
+
+/* --- Project Details Modal --- */
+#project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+#project-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#project-modal .modal-panel {
+  transform: scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#project-modal.active .modal-panel {
+  transform: scale(1);
+}
+
+/* --- Toast Notification --- */
+#toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 70;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-accent);
+  color: var(--text-pure);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+#toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* --- Micro-interactions & Accents --- */
+.pulse-emerald {
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseBeacon 2s infinite;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.skill-bar-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: #1e1e1e;
+  overflow: hidden;
+}
+
+.skill-bar-progress {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Interactive Box Bubble Touch Effect
+   Frosted, luminous bubbles that spawn and float when touching/clicking cards
+   ========================================================================== */
+.touch-bubble-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 25;
+  border-radius: inherit;
+}
+
+.touch-bubble-wave {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.7) 0%, rgba(96, 165, 250, 0.4) 35%, rgba(139, 92, 246, 0.2) 65%, rgba(255, 255, 255, 0.05) 85%);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 16px rgba(96, 165, 250, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%) scale(0.1);
+  animation: touchBubbleBurst 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.touch-mini-bubble {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95) 0%, rgba(56, 189, 248, 0.65) 45%, rgba(139, 92, 246, 0.3) 75%, rgba(255, 255, 255, 0.25) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6), inset 0 0 6px rgba(255, 255, 255, 0.9);
+  animation: miniBubbleFloat 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes touchBubbleBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.85);
+    opacity: 0;
+  }
+}
+
+@keyframes miniBubbleFloat {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -55px))) scale(1.3);
+    opacity: 0;
+  }
+}
