@@ -807,6 +807,100 @@
       color: #fff;
     }
 
+    /* Confirmatory Success Card */
+    .cf-container {
+      position: relative;
+      width: 100%;
+    }
+    .confirm-card {
+      display: none;
+      background: var(--white);
+      border: 2px solid #10b981;
+      border-radius: var(--r2);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(16, 185, 129, 0.12);
+      animation: confirmPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .confirm-card.active {
+      display: block;
+    }
+    @keyframes confirmPop {
+      0%   { opacity: 0; transform: scale(0.92) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .confirm-icon-wrap {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: #ecfdf5;
+      border: 2px solid #a7f3d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      color: #059669;
+      animation: pulseGreen 2s infinite;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35); }
+      50%      { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+    }
+    .confirm-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .confirm-desc {
+      font-size: 0.88rem;
+      color: var(--ink-3);
+      max-width: 380px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+    .confirm-details {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.82rem;
+      color: var(--ink-2);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      text-align: left;
+    }
+    .confirm-details div {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .confirm-details i {
+      color: #059669;
+      font-size: 0.9rem;
+    }
+    .btn-reset-form {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: var(--r);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+    .btn-reset-form:hover {
+      background: var(--p1);
+      transform: translateY(-2px);
+    }
+
     /* ============================================
        FOOTER
     ============================================ */
@@ -1366,45 +1460,65 @@
         </div>
       </div>
 
-      <!-- Right: form (Direct email delivery to gopi736736@gmail.com) -->
-      <form class="cf reveal d1" id="cf" action="https://formsubmit.co/gopi736736@gmail.com" method="POST">
-        <!-- FormSubmit configuration -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" id="cf_next" value="https://gopi0502.github.io/my-protyofolio/#contact?sent=true">
-        <input type="hidden" name="_subject" id="cf_subject_hidden" value="New Portfolio Message for Gopikrishna">
-        <div class="cf-row">
-          <div class="cf-group">
-            <label class="cf-label" for="fn">First Name</label>
-            <input class="cf-input" type="text" id="fn" name="first_name" placeholder="Your first name" required autocomplete="given-name"/>
+      <!-- Right: form + confirmation card -->
+      <div class="cf-container reveal d1">
+        <!-- Confirmatory Success Card -->
+        <div class="confirm-card" id="confirmCard" role="alert" aria-live="polite">
+          <div class="confirm-icon-wrap">
+            <i class="fas fa-check"></i>
           </div>
-          <div class="cf-group">
-            <label class="cf-label" for="ln">Last Name</label>
-            <input class="cf-input" type="text" id="ln" name="last_name" placeholder="Your last name" autocomplete="family-name"/>
+          <h3 class="confirm-title">Message Sent Successfully!</h3>
+          <p class="confirm-desc">Thank you! Your message has been safely delivered to Gopikrishna. You will receive a response shortly.</p>
+          <div class="confirm-details">
+            <div><i class="fas fa-check-circle"></i> <span><strong>Delivered to:</strong> gopi736736@gmail.com</span></div>
+            <div><i class="fas fa-envelope-open-text"></i> <span><strong>Auto-Confirmation:</strong> Sent to your email</span></div>
+            <div><i class="fas fa-clock"></i> <span><strong>Typical Reply:</strong> Within 24 hours</span></div>
           </div>
-        </div>
-        <div class="cf-group">
-          <label class="cf-label" for="em">Email</label>
-          <input class="cf-input" type="email" id="em" name="email" placeholder="your@email.com" required autocomplete="email"/>
-        </div>
-        <div class="cf-group">
-          <label class="cf-label" for="sub">Subject</label>
-          <input class="cf-input" type="text" id="sub" name="subject" placeholder="What's on your mind?"/>
-        </div>
-        <div class="cf-group">
-          <label class="cf-label" for="msg">Message</label>
-          <textarea class="cf-area" id="msg" name="message" placeholder="Tell me more..." required></textarea>
-        </div>
-        <div class="cf-actions">
-          <button type="submit" class="btn-dark" id="cf-btn" style="flex:1; justify-content:center;">
-            <i class="fas fa-paper-plane" id="cf-icon"></i> <span id="cf-btn-text">Send Message</span>
-          </button>
-          <button type="button" class="btn-gmail" id="gmailBtn">
-            <i class="fab fa-google"></i> Send via Gmail
+          <button type="button" class="btn-reset-form" id="btnResetForm">
+            <i class="fas fa-redo"></i> Send Another Message
           </button>
         </div>
-        <div class="cf-status" id="cf-status" role="status" aria-live="polite"></div>
-      </form>
+
+        <form class="cf" id="cf" action="https://formsubmit.co/gopi736736@gmail.com" method="POST">
+          <!-- FormSubmit configuration -->
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_autoresponse" value="Thank you for reaching out to Gopikrishna! Your message has been received successfully. I will review it and reply as soon as possible.">
+          <input type="hidden" name="_next" id="cf_next" value="https://gopi0502.github.io/my-protyofolio/#contact?sent=true">
+          <input type="hidden" name="_subject" id="cf_subject_hidden" value="New Portfolio Message for Gopikrishna">
+          <div class="cf-row">
+            <div class="cf-group">
+              <label class="cf-label" for="fn">First Name</label>
+              <input class="cf-input" type="text" id="fn" name="first_name" placeholder="Your first name" required autocomplete="given-name"/>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label" for="ln">Last Name</label>
+              <input class="cf-input" type="text" id="ln" name="last_name" placeholder="Your last name" autocomplete="family-name"/>
+            </div>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label" for="em">Email</label>
+            <input class="cf-input" type="email" id="em" name="email" placeholder="your@email.com" required autocomplete="email"/>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label" for="sub">Subject</label>
+            <input class="cf-input" type="text" id="sub" name="subject" placeholder="What's on your mind?"/>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label" for="msg">Message</label>
+            <textarea class="cf-area" id="msg" name="message" placeholder="Tell me more..." required></textarea>
+          </div>
+          <div class="cf-actions">
+            <button type="submit" class="btn-dark" id="cf-btn" style="flex:1; justify-content:center;">
+              <i class="fas fa-paper-plane" id="cf-icon"></i> <span id="cf-btn-text">Send Message</span>
+            </button>
+            <button type="button" class="btn-gmail" id="gmailBtn">
+              <i class="fab fa-google"></i> Send via Gmail
+            </button>
+          </div>
+          <div class="cf-status" id="cf-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -1722,10 +1836,12 @@
   })();
 
   /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-     8. CONTACT FORM (Guaranteed Delivery via FormSubmit + Gmail)
+     8. CONTACT FORM (Guaranteed Delivery + Confirmatory Screen)
   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   (function initContactForm() {
     const form        = document.getElementById('cf');
+    const confirmCard = document.getElementById('confirmCard');
+    const btnReset    = document.getElementById('btnResetForm');
     const btn         = document.getElementById('cf-btn');
     const icon        = document.getElementById('cf-icon');
     const btnText     = document.getElementById('cf-btn-text');
@@ -1736,6 +1852,33 @@
     const nextInput   = document.getElementById('cf_next');
     const subjectHide = document.getElementById('cf_subject_hidden');
 
+    function showConfirmation() {
+      if (form) form.style.display = 'none';
+      if (confirmCard) {
+        confirmCard.classList.add('active');
+        confirmCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function resetFormView() {
+      if (confirmCard) confirmCard.classList.remove('active');
+      if (form) {
+        form.style.display = 'flex';
+        form.reset();
+      }
+      if (status) status.style.display = 'none';
+      if (btn) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        icon.className = 'fas fa-paper-plane';
+        btnText.textContent = 'Send Message';
+      }
+    }
+
+    if (btnReset) {
+      btnReset.addEventListener('click', resetFormView);
+    }
+
     // Dynamic redirect URL for FormSubmit
     if (nextInput && window.location.href.startsWith('http')) {
       const baseUrl = window.location.href.split('?')[0].split('#')[0];
@@ -1744,8 +1887,7 @@
 
     // Check if returning from a successful FormSubmit redirect
     if (window.location.search.includes('sent=true')) {
-      showMsg('ðŸŽ‰ Message sent successfully! Gopikrishna has received your email.', 'success');
-      // Clean up URL without reload
+      showConfirmation();
       if (window.history.replaceState) {
         const cleanUrl = window.location.href.replace(/[\?&]sent=true/, '');
         window.history.replaceState(null, '', cleanUrl);
@@ -1790,23 +1932,24 @@
       });
     }
 
-    // 3. Form Submission
+    // 3. Form Submission with Instant Confirmatory Card
     if (form) {
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
         const fn  = document.getElementById('fn').value.trim();
+        const ln  = document.getElementById('ln').value.trim();
         const em  = document.getElementById('em').value.trim();
         const sub = document.getElementById('sub').value.trim();
         const msg = document.getElementById('msg').value.trim();
 
         if (!fn || !em || !msg) {
-          e.preventDefault();
           showMsg('Please fill in Name, Email, and Message.', 'error');
           return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(em)) {
-          e.preventDefault();
           showMsg('Please enter a valid email address.', 'error');
           return;
         }
@@ -1815,22 +1958,54 @@
           subjectHide.value = `Portfolio Contact from ${fn}: ${sub || 'New Message'}`;
         }
 
-        // If running offline or as local file, open Gmail directly instead of failing FormSubmit
+        // If running offline or as local file, open Gmail directly
         if (window.location.protocol === 'file:') {
-          e.preventDefault();
-          showMsg('FormSubmit requires a hosted website. Opening Gmail with your message...', 'success');
+          showMsg('Opening Gmail in a new tab to send your message...', 'success');
           setTimeout(() => {
             window.open(buildGmailUrl(), '_blank');
           }, 800);
           return;
         }
 
-        // Live submit via FormSubmit
+        // Live submit state
         btn.disabled = true;
         btn.style.opacity = '0.7';
         icon.className = 'fas fa-spinner fa-spin';
-        btnText.textContent = 'Sending...';
-        // Form submits natively to https://formsubmit.co/gopi736736@gmail.com
+        btnText.textContent = 'Sending Message...';
+        status.style.display = 'none';
+
+        // Try seamless AJAX delivery first
+        try {
+          const response = await fetch('https://formsubmit.co/ajax/gopi736736@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name: fn + (ln ? ' ' + ln : ''),
+              email: em,
+              subject: sub || 'New Portfolio Message',
+              message: msg,
+              _autoresponse: 'Thank you for reaching out to Gopikrishna! Your message has been received successfully. I will review it and reply as soon as possible.',
+              _subject: `Portfolio Message from ${fn}: ${sub || 'General Inquiry'}`
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && (data.success === 'true' || data.success === true)) {
+            // Instant Confirmatory Screen!
+            showConfirmation();
+            return;
+          } else {
+            throw new Error(data.message || 'AJAX fallback needed');
+          }
+        } catch (err) {
+          console.warn('FormSubmit AJAX fallback to native submit:', err);
+          // If AJAX is blocked, submit natively to FormSubmit
+          form.submit();
+        }
       });
     }
 
