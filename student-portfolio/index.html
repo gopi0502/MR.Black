@@ -18,26 +18,26 @@
 
   <style>
     /* ============================================
-       TOKENS
+       TOKENS — SLEEK MIDNIGHT DARK THEME
     ============================================ */
     :root {
-      --white:      #ffffff;
-      --off-white:  #f7f6f3;
-      --paper:      #f2f0eb;
-      --ink:        #111111;
-      --ink-2:      #333333;
-      --ink-3:      #666666;
-      --ink-4:      #999999;
-      --border:     #e0ddd8;
-      --border-2:   #ccc9c2;
+      --white:      #090d16;
+      --off-white:  #0e1524;
+      --paper:      #131c2e;
+      --ink:        #ffffff;
+      --ink-2:      #e2e8f0;
+      --ink-3:      #94a3b8;
+      --ink-4:      #64748b;
+      --border:     rgba(255, 255, 255, 0.08);
+      --border-2:   rgba(255, 255, 255, 0.16);
 
-      --p1: #8b5cf6;   /* violet */
-      --p2: #ec4899;   /* pink */
-      --p3: #f97316;   /* orange */
-      --p4: #a78bfa;   /* lavender */
-      --p5: #fb923c;   /* peach */
+      --p1: #a78bfa;   /* violet */
+      --p2: #f472b6;   /* pink */
+      --p3: #fb923c;   /* orange */
+      --p4: #c084fc;   /* lavender */
+      --p5: #38bdf8;   /* cyan */
 
-      --grad: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 40%, #fdba74 80%, #fde68a 100%);
+      --grad: linear-gradient(135deg, #a78bfa 0%, #f472b6 40%, #fb923c 80%, #fde047 100%);
       --grad-2: linear-gradient(90deg, #8b5cf6, #ec4899, #f97316);
 
       --font-display: 'Bebas Neue', sans-serif;
@@ -63,48 +63,12 @@
       font-family: var(--font-body);
       line-height: 1.6;
       overflow-x: hidden;
-      cursor: none;            /* hide default — we use custom */
+      cursor: default;            /* Clean system cursor */
     }
-    a { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none; cursor: pointer; }
     img { display: block; max-width: 100%; }
     ul { list-style: none; }
     button { font-family: inherit; cursor: pointer; }
-
-    /* ============================================
-       CUSTOM CURSOR — dot + lens
-    ============================================ */
-    #c-dot {
-      position: fixed; z-index: 9999; pointer-events: none;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--ink);
-      transform: translate(-50%, -50%);
-      transition: width .15s, height .15s, background .2s;
-      mix-blend-mode: difference;
-    }
-    #c-ring {
-      position: fixed; z-index: 9998; pointer-events: none;
-      width: 40px; height: 40px; border-radius: 50%;
-      border: 1.5px solid rgba(139,92,246,.5);
-      transform: translate(-50%, -50%);
-    }
-    /* The MAGNIFYING GLASS LENS — canvas-drawn circle that shows
-       a zoomed gradient-tinted view of whatever's under the mouse */
-    #lens-canvas {
-      position: fixed; z-index: 9997; pointer-events: none;
-      border-radius: 50%;
-      box-shadow:
-        0 0 0 2px rgba(139,92,246,.35),
-        0 20px 60px rgba(139,92,246,.18),
-        inset 0 0 30px rgba(196,181,253,.08);
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      transition: opacity .35s ease;
-      overflow: hidden;
-    }
-    #lens-canvas.visible { opacity: 1; }
-
-    body.on-link #c-dot { width: 14px; height: 14px; background: var(--p1); mix-blend-mode: normal; }
-    body.on-link #c-ring { border-color: var(--p1); width: 56px; height: 56px; }
 
     /* ============================================
        SCROLLBAR
@@ -145,12 +109,12 @@
       height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(1.5rem, 5vw, 4rem);
-      background: rgba(255,255,255,.82);
+      background: rgba(9,13,22,.85);
       backdrop-filter: blur(18px) saturate(1.6);
       border-bottom: 1px solid var(--border);
       transition: border-color .3s;
     }
-    nav.scrolled { border-bottom-color: var(--border-2); box-shadow: 0 1px 20px rgba(0,0,0,.05); }
+    nav.scrolled { border-bottom-color: var(--border-2); box-shadow: 0 4px 25px rgba(0,0,0,.5); }
 
     .nav-logo {
       font-family: var(--font-body);
@@ -183,11 +147,12 @@
     .nav-btn {
       display: inline-flex; align-items: center; gap: .5rem;
       padding: .55rem 1.35rem;
-      background: var(--ink); color: var(--white);
+      background: linear-gradient(135deg, #8b5cf6, #ec4899); color: #ffffff;
       border: none; border-radius: var(--r3);
       font-size: .8rem; font-weight: 600; letter-spacing: .05em;
       text-transform: uppercase;
-      transition: background .25s, transform .25s var(--spring);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+      transition: transform .25s var(--spring);
     }
     .nav-btn:hover { background: var(--p1); transform: scale(1.04); }
 
@@ -208,7 +173,7 @@
     /* Mobile drawer */
     .mobile-nav {
       position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 199;
-      background: rgba(255,255,255,.97);
+      background: rgba(9,13,22,.98);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
       padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
@@ -344,8 +309,8 @@
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 1.5rem;
       padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
-      background: rgba(247,246,243,.7);
-      backdrop-filter: blur(4px);
+      background: rgba(14,21,36,.7);
+      backdrop-filter: blur(8px);
       border-top: 1px solid var(--border);
     }
     .hero-tagline {
@@ -358,17 +323,17 @@
     .btn-dark {
       display: inline-flex; align-items: center; gap: .55rem;
       padding: .85rem 1.75rem;
-      background: var(--ink); color: var(--white);
+      background: #ffffff; color: #090d16;
       border-radius: var(--r3); border: none;
-      font-size: .875rem; font-weight: 600;
-      transition: background .25s, transform .3s var(--spring);
+      font-size: .875rem; font-weight: 700;
+      transition: background .25s, transform .3s var(--spring), box-shadow .25s;
     }
-    .btn-dark:hover { background: var(--p1); transform: scale(1.04) translateY(-2px); }
+    .btn-dark:hover { background: var(--p1); color: #090d16; transform: scale(1.04) translateY(-2px); box-shadow: 0 0 20px rgba(167,139,250,.4); }
 
     .btn-outline {
       display: inline-flex; align-items: center; gap: .55rem;
       padding: .85rem 1.75rem;
-      background: transparent; color: var(--ink);
+      background: rgba(255,255,255,.05); color: #ffffff;
       border-radius: var(--r3); border: 1.5px solid var(--border-2);
       font-size: .875rem; font-weight: 600;
       transition: border-color .25s, transform .3s var(--spring);
@@ -747,17 +712,17 @@
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      background: #ecfdf5;
+      background: rgba(16, 185, 129, 0.12);
       border: 2px solid #10b981;
-      color: #065f46;
+      color: #a7f3d0;
       border-radius: var(--r);
       padding: 1.15rem 1.4rem;
-      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
     }
     .cf-status.success .status-head {
       font-size: 1rem;
       font-weight: 700;
-      color: #047857;
+      color: #34d399;
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -768,14 +733,14 @@
     }
     .cf-status.success .status-body {
       font-size: 0.86rem;
-      color: #065f46;
+      color: #d1fae5;
       line-height: 1.55;
     }
     .cf-status.error {
       display: flex;
-      background: #fef2f2;
-      border: 1.5px solid #fecaca;
-      color: #991b1b;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1.5px solid #ef4444;
+      color: #fca5a5;
     }
     @keyframes cfFadeIn {
       from { opacity: 0; transform: translateY(-6px); }
@@ -796,9 +761,9 @@
       font-size: 0.85rem;
       font-weight: 600;
       font-family: var(--font-body);
-      background: var(--white);
-      color: #ea4335;
-      border: 1.5px solid #ea4335;
+      background: var(--paper);
+      color: #f87171;
+      border: 1.5px solid rgba(248, 113, 113, 0.5);
       cursor: pointer;
       transition: all 0.25s var(--ease);
       text-decoration: none;
@@ -806,8 +771,9 @@
     .btn-gmail:hover {
       background: #ea4335;
       color: #ffffff;
+      border-color: #ea4335;
       transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(234,67,53,0.25);
+      box-shadow: 0 4px 14px rgba(234,67,53,0.35);
     }
     .copy-chip {
       display: inline-flex;
@@ -818,15 +784,15 @@
       font-size: 0.75rem;
       font-weight: 600;
       border-radius: 6px;
-      background: rgba(139,92,246,0.08);
-      color: var(--p1);
-      border: 1px solid rgba(139,92,246,0.25);
+      background: rgba(167, 139, 250, 0.12);
+      color: #c4b5fd;
+      border: 1px solid rgba(167, 139, 250, 0.3);
       cursor: pointer;
       transition: all 0.2s;
     }
     .copy-chip:hover {
       background: var(--p1);
-      color: #fff;
+      color: #090d16;
     }
 
     /* Confirmatory Success Card */
@@ -836,12 +802,12 @@
     }
     .confirm-card {
       display: none;
-      background: var(--white);
+      background: var(--paper);
       border: 2px solid #10b981;
       border-radius: var(--r2);
       padding: 2.5rem 2rem;
       text-align: center;
-      box-shadow: 0 20px 45px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.2);
       animation: confirmPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .confirm-card.active {
@@ -856,13 +822,13 @@
       height: 68px;
       margin: 0 auto 1.25rem;
       border-radius: 50%;
-      background: #ecfdf5;
-      border: 2px solid #a7f3d0;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid rgba(16, 185, 129, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.85rem;
-      color: #059669;
+      color: #34d399;
       animation: pulseGreen 2s infinite;
     }
     @keyframes pulseGreen {
@@ -1045,10 +1011,6 @@
 
 <body>
 
-  <!-- Custom cursor elements -->
-  <div id="c-dot"></div>
-  <div id="c-ring"></div>
-  <canvas id="lens-canvas" width="160" height="160"></canvas>
 
   <!-- Floating Toast Notification -->
   <div id="toast-notification" role="status" aria-live="polite">
@@ -1655,120 +1617,7 @@
     { src:'https://picsum.photos/seed/gk6/600/500', cap:'Math Olympiad Prep' },
   ];
 
-  /* ══════════════════════════════════════════
-     1. CUSTOM CURSOR + MAGNIFYING GLASS LENS
-  ══════════════════════════════════════════ */
-  (function initCursor() {
-    const dot    = document.getElementById('c-dot');
-    const ring   = document.getElementById('c-ring');
-    const canvas = document.getElementById('lens-canvas');
-    const ctx    = canvas.getContext('2d');
 
-    const LENS_R = 80;   // radius in px
-    const ZOOM   = 2.1;  // magnification factor
-
-    // Position state
-    let mx = -999, my = -999;   // actual mouse
-    let rx = -999, ry = -999;   // ring (lagging)
-
-    /* Position helpers */
-    function setXY(el, x, y) {
-      el.style.left = x + 'px';
-      el.style.top  = y + 'px';
-    }
-
-    /* Mouse move */
-    window.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      setXY(dot, mx, my);
-      setXY(canvas, mx, my);
-      canvas.classList.add('visible');
-      drawLens(e.clientX, e.clientY);
-    });
-
-    /* Mouse leave page */
-    document.addEventListener('mouseleave', () => { canvas.classList.remove('visible'); });
-
-    /* Lagging ring RAF */
-    (function animRing() {
-      rx += (mx - rx) * 0.13;
-      ry += (my - ry) * 0.13;
-      setXY(ring, rx, ry);
-      requestAnimationFrame(animRing);
-    })();
-
-    /* ── LENS DRAW ── */
-    function drawLens(cx, cy) {
-      const D = LENS_R * 2;
-      canvas.width  = D;
-      canvas.height = D;
-      canvas.style.width  = D + 'px';
-      canvas.style.height = D + 'px';
-
-      ctx.clearRect(0, 0, D, D);
-
-      /* Clip to circle */
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(LENS_R, LENS_R, LENS_R - 1, 0, Math.PI * 2);
-      ctx.clip();
-
-      /* Fill glass background — frosted white */
-      ctx.fillStyle = 'rgba(255,255,255,0.55)';
-      ctx.fillRect(0, 0, D, D);
-
-      /* Capture the page area under the lens via html2canvas-lite approach:
-         We'll use drawImage on the document body — not natively supported,
-         so instead we draw a beautiful glass effect with gradient reflection */
-
-      /* Inner gradient — mimics lens refraction with pastel colors */
-      const grad = ctx.createRadialGradient(LENS_R, LENS_R * 0.6, 0, LENS_R, LENS_R, LENS_R);
-      grad.addColorStop(0,   'rgba(196,181,253,0.35)');  /* lavender */
-      grad.addColorStop(0.4, 'rgba(249,168,212,0.2)');   /* pink */
-      grad.addColorStop(0.75,'rgba(253,186,116,0.15)');  /* peach */
-      grad.addColorStop(1,   'rgba(255,255,255,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, D, D);
-
-      /* Crosshair lines */
-      ctx.strokeStyle = 'rgba(139,92,246,0.2)';
-      ctx.lineWidth = 0.8;
-      ctx.setLineDash([4,4]);
-      ctx.beginPath(); ctx.moveTo(LENS_R,4); ctx.lineTo(LENS_R, D-4); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(4, LENS_R); ctx.lineTo(D-4, LENS_R); ctx.stroke();
-      ctx.setLineDash([]);
-
-      /* Top specular highlight */
-      const spec = ctx.createLinearGradient(0, 0, 0, LENS_R * 0.7);
-      spec.addColorStop(0,   'rgba(255,255,255,0.55)');
-      spec.addColorStop(1,   'rgba(255,255,255,0)');
-      ctx.fillStyle = spec;
-      ctx.beginPath();
-      ctx.ellipse(LENS_R, LENS_R * 0.4, LENS_R * 0.65, LENS_R * 0.35, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.restore();
-
-      /* Outer ring stroke */
-      ctx.beginPath();
-      ctx.arc(LENS_R, LENS_R, LENS_R - 1, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(139,92,246,0.3)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      /* Central dot */
-      ctx.beginPath();
-      ctx.arc(LENS_R, LENS_R, 3, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(139,92,246,0.6)';
-      ctx.fill();
-    }
-
-    /* Hover state for interactive elements */
-    document.querySelectorAll('a,button,.proj-card,.ach-card,.sk-card,.a-card,.gal-item,.ci-item,.tag,.soc-btn').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('on-link'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('on-link'));
-    });
-  })();
 
   /* ══════════════════════════════
      2. NAVBAR
