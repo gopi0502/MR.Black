@@ -344,8 +344,10 @@
        MARQUEE TICKER
     ============================================ */
     .ticker {
-      background: var(--ink); overflow: hidden;
+      background: #060911; overflow: hidden;
       padding: .85rem 0; position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .ticker-track {
       display: flex; white-space: nowrap;
@@ -355,11 +357,11 @@
       display: inline-flex; align-items: center; gap: .9rem;
       padding: 0 2rem;
       font-size: .75rem; font-weight: 500; letter-spacing: .1em;
-      text-transform: uppercase; color: rgba(255,255,255,.55);
+      text-transform: uppercase; color: var(--ink-3);
       flex-shrink: 0;
     }
     .ticker-item .star {
-      color: var(--p4); font-size: .6rem; flex-shrink: 0;
+      color: var(--p1); font-size: .6rem; flex-shrink: 0;
     }
     @keyframes ticker {
       from { transform: translateX(0); }
@@ -875,17 +877,17 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: var(--ink);
-      color: #fff;
+      background: var(--p1);
+      color: #090d16;
       border: none;
       border-radius: var(--r);
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.25s var(--ease);
     }
     .btn-reset-form:hover {
-      background: var(--p1);
+      background: #c084fc;
       transform: translateY(-2px);
     }
 
@@ -925,8 +927,9 @@
        FOOTER
     ============================================ */
     footer {
-      background: var(--ink); color: var(--white);
+      background: #060911; color: var(--ink);
       position: relative; overflow: hidden;
+      border-top: 1px solid var(--border);
     }
     .foot-grad { height: 4px; background: var(--grad); }
     .foot-top {
@@ -935,28 +938,28 @@
     }
     .foot-logo { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .02em; margin-bottom: 1rem; }
     .foot-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .foot-brand p { font-size: .875rem; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 260px; }
+    .foot-brand p { font-size: .875rem; color: var(--ink-3); line-height: 1.75; max-width: 260px; }
     .foot-soc { display: flex; gap: .6rem; margin-top: 1.5rem; }
     .foot-soc-btn {
       width: 36px; height: 36px; border-radius: 8px;
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05); border: 1px solid var(--border-2);
       display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; color: rgba(255,255,255,.5);
+      font-size: .85rem; color: var(--ink-3);
       transition: background .2s, color .2s, transform .3s var(--spring);
     }
-    .foot-soc-btn:hover { background: var(--p1); color: #fff; transform: scale(1.1); }
-    .foot-col-t { font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 1.25rem; }
+    .foot-soc-btn:hover { background: var(--p1); color: #090d16; transform: scale(1.1); }
+    .foot-col-t { font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--p1); margin-bottom: 1.25rem; }
     .foot-links { display: flex; flex-direction: column; gap: .65rem; }
-    .foot-links a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color .2s; }
-    .foot-links a:hover { color: rgba(255,255,255,.9); }
+    .foot-links a { font-size: .85rem; color: var(--ink-3); transition: color .2s; }
+    .foot-links a:hover { color: #ffffff; }
     .foot-bottom {
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.5rem clamp(1.5rem,5vw,4rem);
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-top: 1px solid var(--border);
       flex-wrap: wrap; gap: 1rem;
     }
-    .foot-copy { font-size: .78rem; color: rgba(255,255,255,.3); }
-    .foot-copy span { color: var(--p4); }
+    .foot-copy { font-size: .78rem; color: var(--ink-4); }
+    .foot-copy span { color: var(--p1); font-weight: 600; }
 
     /* ============================================
        BACK TO TOP
@@ -964,15 +967,15 @@
     .btt {
       position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
       width: 44px; height: 44px; border-radius: var(--r);
-      background: var(--ink); border: none; color: var(--white);
+      background: var(--paper); border: 1px solid var(--border-2); color: var(--ink);
       font-size: .85rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+      box-shadow: 0 8px 24px rgba(0,0,0,.6);
       opacity: 0; transform: translateY(10px);
       transition: opacity .3s, transform .3s, background .2s;
     }
     .btt.show { opacity: 1; transform: translateY(0); }
-    .btt:hover { background: var(--p1); transform: translateY(-3px); }
+    .btt:hover { background: var(--p1); color: #090d16; transform: translateY(-3px); }
 
     /* ============================================
        RESPONSIVE
@@ -1580,7 +1583,7 @@
         <div class="foot-links">
           <a href="#hero">Home</a><a href="#about">About</a>
           <a href="#skills">Skills</a><a href="#projects">Projects</a>
-          <a href="#achievements">Achievements</a><a href="#contact">Contact</a>
+          <a href="#achievements">Achievements</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
         </div>
       </div>
       <div>
